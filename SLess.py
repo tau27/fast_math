@@ -4,10 +4,12 @@ from Templ import *
 
 class Lesson(MScene):
     def construct(self):
-            self.dCoords()
-            line = Line(start=np.array([0,0,0]))
-            
+            #self.debug()
+            self.default()
+            self.dSt()
+            self.wait()
+            self.dSt()
+
             #region Animate
-            self.play(Create(line))
             self.wait()
             #endregion

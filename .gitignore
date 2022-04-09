@@ -1,3 +1,5 @@
 env/
 media/
 *.pyc
+_pycache_/
+*.log
