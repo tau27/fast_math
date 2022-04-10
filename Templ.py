@@ -3,7 +3,7 @@ import numpy as np
 
 class MScene(Scene):
     mConfig = {
-        "subfile" : open("Subtitles/SLess.txt", mode="rt", encoding='utf-8' ),
+        "subfile" : "",
         "FSD" : 30,
         "MAXS" : 35
         }
