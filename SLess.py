@@ -9,6 +9,8 @@ class Lesson(MScene):
             self.dSt()
             self.wait()
             self.dSt()
+            self.wait()
+            self.dSt()
 
             #region Animate
             self.wait()

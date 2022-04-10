@@ -7,6 +7,9 @@ class MScene(Scene):
         "FSD" : 30,
         "MAXS" : 35
         }
+    st1 = 0
+    st2 = 0
+
     def debug(self):
         self.dCoords()
 
@@ -24,10 +27,19 @@ class MScene(Scene):
                 self.add(Dot(np.array([x, y, 0]), color=DARK_GREY))
     
     def dSt(self):
-        stext = self.mConfig["subfile"].readline()
-        stext1 = stext[:self.mConfig["MAXS"]]
-        stext2 = stext[self.mConfig["MAXS"]:]
-        st1 = Text(stext1, font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
-        st2 = Text(stext2, font_size=self.mConfig["FSD"]).next_to(st1, DOWN)
-        stal = VGroup(st1, st2)
-        self.play(Write(stal))
+        if self.st1 == 0:
+            stext = self.mConfig["subfile"].readline()
+            stext1 = stext[:self.mConfig["MAXS"]]
+            stext2 = stext[self.mConfig["MAXS"]:]
+            self.st1 = Text(stext1, font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
+            self.st2 = Text(stext2, font_size=self.mConfig["FSD"]).next_to(self.st1, DOWN)
+            stal = VGroup(self.st1, self.st2)
+            self.play(Write(stal))
+        else:
+            stext = self.mConfig["subfile"].readline()
+            stext1 = stext[:self.mConfig["MAXS"]]
+            stext2 = stext[self.mConfig["MAXS"]:]
+            st1 = Text(stext1, font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
+            st2 = Text(stext2, font_size=self.mConfig["FSD"]).next_to(self.st1, DOWN)
+            self.play(Transform(self.st1, st1))
+            self.play(Transform(self.st2, st2))
