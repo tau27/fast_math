@@ -16,6 +16,22 @@ class MScene(Scene):
     def default(self):
         line = Line(start=np.array([-8, -2.5, 0]), end=np.array([9, -2.5, 0]))
         self.play(Create(line))
+        stext = self.mConfig["subfile"].readline()
+        if len(stext) >= self.mConfig["MAXS"]:
+            ind = stext.rfind(" ", 0, self.mConfig["MAXS"])
+            if ind == -1:
+                stext1 = stext
+                stext2 = ""
+            else:
+                stext1 = stext[:ind]
+                stext2 = stext[ind:]
+        else:
+            stext1 = stext
+            stext2 = ""
+        self.st1 = Text(stext1, font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
+        self.st2 = Text(stext2, font_size=self.mConfig["FSD"]).next_to(self.st1, DOWN)
+        stal = VGroup(self.st1, self.st2)
+        self.play(Write(stal))
 
     def dGraph(self, obj):
         for i in obj:
@@ -27,19 +43,19 @@ class MScene(Scene):
                 self.add(Dot(np.array([x, y, 0]), color=DARK_GREY))
     
     def dSt(self):
-        if self.st1 == 0:
-            stext = self.mConfig["subfile"].readline()
-            stext1 = stext[:self.mConfig["MAXS"]]
-            stext2 = stext[self.mConfig["MAXS"]:]
-            self.st1 = Text(stext1, font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
-            self.st2 = Text(stext2, font_size=self.mConfig["FSD"]).next_to(self.st1, DOWN)
-            stal = VGroup(self.st1, self.st2)
-            self.play(Write(stal))
+        stext = self.mConfig["subfile"].readline()
+        if len(stext) >= self.mConfig["MAXS"]:
+            ind = stext.rfind(" ", 0, self.mConfig["MAXS"])
+            if ind == -1:
+                stext1 = stext
+                stext2 = ""
+            else:
+                stext1 = stext[:ind]
+                stext2 = stext[ind:]
         else:
-            stext = self.mConfig["subfile"].readline()
-            stext1 = stext[:self.mConfig["MAXS"]]
-            stext2 = stext[self.mConfig["MAXS"]:]
-            st1 = Text(stext1, font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
-            st2 = Text(stext2, font_size=self.mConfig["FSD"]).next_to(self.st1, DOWN)
-            self.play(Transform(self.st1, st1))
-            self.play(Transform(self.st2, st2))
+            stext1 = stext
+            stext2 = ""
+        st1 = Text(stext1, font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
+        st2 = Text(stext2, font_size=self.mConfig["FSD"]).next_to(self.st1, DOWN)
+        self.play(Transform(self.st1, st1))
+        self.play(Transform(self.st2, st2))
