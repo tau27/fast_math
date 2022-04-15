@@ -1,68 +1,60 @@
 from manim import *
 import numpy as np
-from Templ import *
+from templ import *
 
 class Lesson(MScene):
     def construct(self):
         self.mConfig["subfile"] = open("Subtitles/Lesson1.txt", mode="rt", encoding='utf-8' )
         self.default()
 
-        #region ddx
-        ddx = MathTex("\\frac{d}{dx}f(x)", "=", "f'(x)", "=", "\\lim_{h \\to 0} \\frac{f(x + h) - f(x)}{h}")
-        self.play(Write(ddx))
-        self.wait()
-        self.dSt()
-        fbox1 = SurroundingRectangle(ddx[0], buff=.1)
-        self.play(Create(fbox1))
-        self.wait()
-        self.play(Transform(fbox1, SurroundingRectangle(ddx[2], buff=.1)))
-        self.wait()
-        self.play(Transform(fbox1, SurroundingRectangle(ddx[4], buff=.1)))
-        self.wait()
-        self.play(FadeOut(VGroup(fbox1, ddx)))
-        #endregion
 
-        #region Templ
-        self.dSt()
-
+        #region Car
+        #dSt16
         def func(x):
-            return x**2
-        ax1 = Axes(
-            x_range=[0, 10, 1],
-            y_range=[0, 50, 10],
-            x_axis_config={
-                "numbers_to_include": np.arange(0, 10.01, 1)
-            },
-            y_axis_config={
-                "numbers_to_include": np.arange(0, 50.01, 10)
-            },
-            tips = False
-        ).shift(UP).scale(0.9)
-        labels = ax1.get_axis_labels(x_label="x", y_label="y")
-        ex = ax1.plot(func, color = BLUE)
+            e = x + np.sin(x)
+            return e
+        self.dSt()
+        ax = self.defgraph()
+        graph = ax.plot(func, color = BLUE)
+        gbuf = ax.plot(lambda x: x, color = BLUE)
+        labels = ax.get_axis_labels()
+        self.dGraph([ax, gbuf, labels])
+        self.dSt()
+        self.wait()
+        self.play(ReplacementTransform(gbuf, graph))
+        self.dSt()
+        self.wait()
+        self.dSt()
 
-        self.dGraph(VGroup(ax1, ex, labels))
-        
-        t = ValueTracker(2)
+        dx = ValueTracker(1)
+        x = ValueTracker(5)
 
-        slope = always_redraw(lambda : ax1.get_secant_slope_group(
-            x=4.0,
-            graph=ex,
-            dx=t.get_value(),
+        slope = always_redraw(lambda: ax.get_secant_slope_group(
+            x = x.get_value(),
+            dx = dx.get_value(),
+            graph=graph,
             dx_label="dx",
             dy_label="dy",
             dx_line_color=GREEN_B,
-            secant_line_length=4,
+            secant_line_length=10,
             secant_line_color=RED_D,
-        ))
-        self.play(Create(slope))
-        self.wait()
-        self.play(t.animate.set_value(1))
-        self.dSt()
-        self.wait()
-        self.dSt()
-        self.wait()
-        self.play(FadeOut(VGroup(slope, ax1, ex, labels)))
-        #endregion
+            )
+        )
 
+        self.play(Create(slope))
+        self.subw(7)
+        self.play(x.animate.set_value(3))
+        self.wait()
+        self.play(x.animate.set_value(6))
+        self.wait()
+        self.play(x.animate.set_value(5))
+        self.wait()
+        self.dSt()
+        self.play(dx.animate.set_value(0.5))
+        self.wait()
+        self.play(dx.animate.set_value(0.1))
+        self.subw(4)
+        #endregion
+        
+        self.outro(VGroup(slope, ax, graph, labels))
         self.wait()

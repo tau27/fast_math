@@ -3,3 +3,7 @@ media/
 *.pyc
 __pycache__/
 *.log
+*.png
+*.mp4
+images/
+videos/
