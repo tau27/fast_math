@@ -42,7 +42,20 @@ class Lesson(MScene):
         )
 
         self.play(Create(slope))
-        self.subw(7)
+        self.subw(4, YELLOW)
+        self.subw(3)
+        line = always_redraw(lambda: Line(start=ax.c2p(x.get_value(), 0, 0), end=ax.c2p(x.get_value(), 10, 0), color = RED))
+        an = always_redraw(lambda: Angle(slope[4], line))
+        tex = always_redraw(lambda: DecimalNumber(Angle(
+                slope[4], line).get_value(), font_size=30).move_to(
+            Angle(
+                slope[4], line, radius=0.5 + 3 * SMALL_BUFF, other_angle=False
+            ).point_from_proportion(0.5)
+        )
+        )
+        self.play(Create(line))
+        self.play(Create(an))
+        self.play(Write(tex))
         self.play(x.animate.set_value(3))
         self.wait()
         self.play(x.animate.set_value(6))
@@ -54,7 +67,11 @@ class Lesson(MScene):
         self.wait()
         self.play(dx.animate.set_value(0.1))
         self.subw(4)
+
+        
+
+        self.subw(4)
         #endregion
         
-        self.outro(VGroup(slope, ax, graph, labels))
+        self.outro(VGroup(slope, ax, graph, labels, an, line, tex))
         self.wait()

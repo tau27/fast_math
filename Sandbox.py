@@ -32,14 +32,31 @@ class Lesson(MScene):
         ).scale(0.9).next_to(ax, DOWN)
         sin = ax.plot(lambda x: np.sin(x), color = YELLOW_A)
         self.dGraph([ax, sin, ax2])
-        l1 = ax.get_vertical_line(ax.i2gp(-1, sin), color=BLUE)
-        l2 = ax.get_vertical_line(ax.i2gp(1, sin), color=BLUE)
-        tirm = ValueTracker(-1)
-        tarm = ValueTracker(1)
-        ter = always_redraw(lambda: ax.plot(lambda x: np.sin(x), x_range=np.array[tirm.get_value(), tarm.get_value(), 0], color=RED,))
-        self.play(Create(VGroup(l1, l2, ter)))
-
+        tirm = ValueTracker(-0.5)
+        tarm = ValueTracker(0.5)
+        l1 = always_redraw(lambda: ax.get_vertical_line(ax.i2gp(tirm.get_value(), sin), color=BLUE))
+        l2 = always_redraw(lambda: ax.get_vertical_line(ax.i2gp(tarm.get_value(), sin), color=BLUE))
+        ter = always_redraw(lambda: ax.plot(
+            lambda x: np.sin(x), 
+            x_range=[tirm.get_value(), tarm.get_value(), .1], 
+            color=RED,
+            )
+        )
+        fbox = SurroundingRectangle(ax2, buff=.1)
+        self.play(Create(fbox))
+        self.dSt()
+        self.wait()
+        self.play(Uncreate(fbox))
+        self.dSt()
+        self.dGraph([l1, l2, ter])
+        self.wait()
+        line1 = ax2.plot(lambda x: 1, color=GREEN, x_range=[-0.5, 0.5, 1])
+        self.dSt()
+        self.dGraph(line1)
+        self.wait()
+        self.dSt()
+        self.play(tirm.animate.set_value(0.5), tarm.animate.set_value(PI/2))
         #endregion
 
         #self.outro(VGroup(ax, sin))
-        self.wait()
+        self.wait(5)
