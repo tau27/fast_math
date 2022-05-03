@@ -1,6 +1,6 @@
 from manim import *
 import numpy as np
-from templ import *
+from Templ import *
 
 class Lesson(MScene):
     def construct(self):

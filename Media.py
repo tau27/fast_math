@@ -1,15 +1,12 @@
 from manim import *
-from matplotlib.pyplot import axes
 import numpy as np
-from pyparsing import col
-from templ import *
+from Templ import *
 
-class Banner(MScene):
-    def construct(self):
-        self.logo.set_color_by_tex(r"vec{F}", BLUE)
-        self.logo.set_color_by_tex("m", "#56E3A7")
-        self.logo.to_edge(UL)
-        m = 3
-        sus = Text("Выпуск 1.", color=BLUE).scale(m).shift(UP)
-        sus2 = Text("Производная", color="#56E3A7").scale(m).next_to(sus, DOWN)
-        self.add(sus, sus2, self.logo)
+class MediaRender(MScene):
+    def vBanner(self, vNum="0", vName="Тест", lang="ru", colorTheme=[BLUE, "#56E3A7"]):
+        if lang == "ru":
+            number = Text(f"Выпуск {vNum}.", color=colorTheme[0])
+            name  = Text(vName, color=colorTheme[1]).next_to(number, DOWN)
+        banner = VGroup(number, name).move_to(ORIGIN)
+        logo = self.logo.to_edge(UL)
+        self.add(banner, logo)
