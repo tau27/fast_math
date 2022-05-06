@@ -1,5 +1,7 @@
 from manim import *
 import numpy as np
+from os import path
+
 WAITT = 1.5
 class RoundedTriangle(Triangle):
     def __init__(self, corner_radius=0.18, **kwargs):
@@ -21,9 +23,9 @@ class MScene(Scene):
         "LANG" : "ru"
     }
 
-    subColors = {
-        "default" : WHITE,
-        "note" : YELLOW
+    subConfig = {
+        "default" : [WHITE, NORMAL, NORMAL],
+        "note" : [YELLOW, NORMAL, ITALIC]
     }
 
     def subw(self, num, type="default"):
@@ -45,7 +47,13 @@ class MScene(Scene):
         ).shift(UP).scale(0.9)
         return graph
 
-    def default(self, type="d"):
+    def default(self, type="d", file=__file__):
+        #region SubLoad
+        name = path.splitext(os.path.basename(file))[0]
+        sLang = self.mConfig["LANG"]
+        self.mConfig["subfile"] = open(f"Subtitles/{sLang}/{name}.txt" , mode="rt", encoding='utf-8' )
+        #endregion
+        
         self.type = type
         if self.type == "y":
             rect = RoundedRectangle(corner_radius=0.23, height=1, width=1.41)
@@ -65,8 +73,6 @@ class MScene(Scene):
             textb = Text("Debug Mode", font="YouTube Sans", color=WHITE)         
             textb.rescale_to_fit(logo.get_width()*0.9, 0).next_to(logo, DOWN)
             banner = VGroup(logo, textb)
-        else:
-            raise TypeError("Это не тип видео!!!1")
         self.play(FadeIn(banner))
         self.wait(WAITT)
         self.play(FadeOut(banner))
@@ -77,24 +83,15 @@ class MScene(Scene):
         self.play(self.logo.animate.scale(0.1).to_edge(DL))
         self.line = Line(start=np.array([-8, -2.5, 0]), end=np.array([9, -2.5, 0]))
         self.play(Create(self.line))
-        if type == "d":
-            self.play(ReplacementTransform(self.logo, self.subCounter))
+
+        #if type == "d":
+            #self.play(ReplacementTransform(self.logo, self.subCounter))
+
         stext = self.mConfig["subfile"].readline()
-        if len(stext) >= self.mConfig["MAXS"]:
-            ind = stext.rfind(" ", 0, self.mConfig["MAXS"])
-            if ind == -1:
-                stext1 = stext
-                stext2 = " "
-            else:
-                stext1 = stext[:ind]
-                stext2 = stext[ind:]
-        else:
-            stext1 = stext
-            stext2 = " "
-        self.st1 = Text(stext1, font="Lucida Grande", font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
-        self.st2 = Text(stext2, font="Lucida Grande", font_size=self.mConfig["FSD"]).next_to(self.st1, DOWN)
-        stal = VGroup(self.st1, self.st2)
-        self.play(Write(stal))
+
+        self.st1 = Text(stext, font="Lucida Grande", font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
+        self.st2 = Text(" ", font="Lucida Grande", font_size=self.mConfig["FSD"]).shift(np.array([0, -3, 0]))
+        self.play(Write(VGroup(self.st1, self.st2)))
 
     def dGraph(self, obj):
         for i in obj:
@@ -107,14 +104,14 @@ class MScene(Scene):
     
     def dSt(self, type="default"):
 
-        subAnim = VGroup()
-
         if self.type == "d":
             self.ser += 1
             self.play(Transform(self.subCounter, Integer(self.ser).to_edge(DL)))
         
-        color = self.subColors[type]
+        conf = self.subConfig
+
         stext = self.mConfig["subfile"].readline()
+
         if len(stext) >= self.mConfig["MAXS"]:
             ind = stext.rfind(" ", 0, self.mConfig["MAXS"])
             stext1 = stext[:ind]
@@ -122,9 +119,9 @@ class MScene(Scene):
         else:
             stext1 = stext
             stext2 = " "
-        st1 = Text(stext1, font_size=self.mConfig["FSD"], font="Lucida Grande", color=color).shift(np.array([0, -3, 0]))
-        st2 = Text(stext2, font_size=self.mConfig["FSD"], font="Lucida Grande", color=color).next_to(self.st1, DOWN)
-        
+        st1 = Text(stext1, font_size=self.mConfig["FSD"], font="Lucida Grande", color=conf[type][0], weight=conf[type][1], slant=conf[type][2]).shift(np.array([0, -3, 0]))
+        st2 = Text(stext2, font_size=self.mConfig["FSD"], font="Lucida Grande", color=conf[type][0], weight=conf[type][1], slant=conf[type][2]).next_to(st1, DOWN)
+
         self.play(Transform(self.st1, st1), Transform(self.st2, st2))
 
     def outro(self, ared, time=5):

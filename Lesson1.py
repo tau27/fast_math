@@ -4,8 +4,7 @@ from Templ import *
 
 class Lesson(MScene):
     def construct(self):
-        self.mConfig["subfile"] = open("Subtitles/Lesson1.txt", mode="rt", encoding='utf-8' )
-        self.default()
+        self.default(file=__file__, type="y")
 
 
         #region Car
@@ -23,8 +22,8 @@ class Lesson(MScene):
         self.wait(WAITT)
         self.play(ReplacementTransform(gbuf, graph))
         self.subw(2)#4-5
-        speed = MathTex("S = ?").to_edge(DR).scale(0.9)
-        self.play(Write(speed))
+        #speed = MathTex("S = ?").to_edge(DR).scale(0.9).shift((DOWN + LEFT) * 0.5)
+        #self.play(Write(speed))
 
         dx = ValueTracker(1)
         x = ValueTracker(5)
@@ -44,7 +43,7 @@ class Lesson(MScene):
         self.play(Create(slope))
         self.subw(4, "note")#6-9
         self.subw(2)#10-11
-        self.play(Transform(speed, MathTex("\\frac{dy}{dx} = ?").to_edge(DR).scale(0.9)))
+        #self.play(Transform(speed, MathTex("\\frac{dy}{dx} = ?").to_edge(DR).scale(0.9).shift((DOWN + LEFT) * 0.5)))
         self.dSt()#12
         line = Line(start=ax.c2p(0, 0, 0), end=ax.c2p(10, 0, 0), color = RED)
         an = always_redraw(lambda: Angle(line, slope[4]))
@@ -68,7 +67,7 @@ class Lesson(MScene):
         self.wait()
         self.play(dx.animate.set_value(0.1))
         self.subw(4)#14-17
-        self.play(Transform(speed, MathTex("\\frac{dy}{dx} = 6").to_edge(DR).scale(0.9)))
+        #self.play(Transform(speed, MathTex("\\frac{dy}{dx} = 6").to_edge(DR).scale(0.9).shift((DOWN + LEFT) * 0.5)))
         self.subw(3, "note")
         self.subw(3)#17-20
         #endregion
