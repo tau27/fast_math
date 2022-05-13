@@ -18,7 +18,7 @@ class MScene(Scene):
     mConfig = {
         "subfile" : "",
         "FSD" : 30,
-        "MAXS" : 45,
+        "MAXS" : 60,
         "DEFSUBCOLOR" : WHITE,
         "LANG" : "ru"
     }
@@ -30,7 +30,7 @@ class MScene(Scene):
 
     def subw(self, num, type="default"):
         for i in range(0, num):
-            self.dSt(type)
+            self.dSt(type = type)
             self.wait(WAITT)
 
     def defgraph(self):
@@ -102,7 +102,7 @@ class MScene(Scene):
             for y in range(sy, ey):
                 self.add(Dot(np.array([x, y, 0]), color=GREY))
     
-    def dSt(self, type="default"):
+    def dSt(self, *funcs, type = "default", waiter = 0.5):
 
         if self.type == "d":
             self.ser += 1
@@ -113,7 +113,7 @@ class MScene(Scene):
         stext = self.mConfig["subfile"].readline()
 
         if len(stext) >= self.mConfig["MAXS"]:
-            ind = stext.rfind(" ", 0, self.mConfig["MAXS"])
+            ind = stext.rfind(" ", 0, round(len(stext)/2) + 2)
             stext1 = stext[:ind]
             stext2 = stext[ind:]
         else:
@@ -122,7 +122,8 @@ class MScene(Scene):
         st1 = Text(stext1, font_size=self.mConfig["FSD"], font="Lucida Grande", color=conf[type][0], weight=conf[type][1], slant=conf[type][2]).shift(np.array([0, -3, 0]))
         st2 = Text(stext2, font_size=self.mConfig["FSD"], font="Lucida Grande", color=conf[type][0], weight=conf[type][1], slant=conf[type][2]).next_to(st1, DOWN)
 
-        self.play(Transform(self.st1, st1), Transform(self.st2, st2))
+        self.play(Transform(self.st1, st1), Transform(self.st2, st2), *funcs)
+        self.wait(waiter)
 
     def outro(self, ared, time=5):
         self.wait()
