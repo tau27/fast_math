@@ -1,5 +1,5 @@
 # Fast math
-[![Site]()](https://mrshprotter.github.io/fast_math/)
+[![Site](https://github.com/3b1b/manim/workflows/docs/badge.svg)](https://mrshprotter.github.io/fast_math/)
 ## Ветки
 ### master
 Постаянная оснавная ветка.
