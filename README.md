@@ -1,4 +1,5 @@
 # Fast math
+[![Site]()](https://mrshprotter.github.io/fast_math/)
 ## Ветки
 ### master
 Постаянная оснавная ветка.
