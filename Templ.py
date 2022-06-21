@@ -12,8 +12,8 @@ class MScene(Scene):
     logo = Tex(r"$\vec{F}$", r"(m)", substrings_to_isolate="m")
     subCounter = Integer(1).to_edge(DL)
     ser = 1
-    st1 = 0
-    st2 = 0
+    st1 = VGroup()
+    st2 = VGroup()
 
     mConfig = {
         "subfile" : "",
@@ -73,6 +73,9 @@ class MScene(Scene):
             textb = Text("Debug Mode", font="YouTube Sans", color=WHITE)         
             textb.rescale_to_fit(logo.get_width()*0.9, 0).next_to(logo, DOWN)
             banner = VGroup(logo, textb)
+        
+        else:
+            banner = VGroup()
         self.play(FadeIn(banner))
         self.wait(WAITT)
         self.play(FadeOut(banner))

@@ -34,7 +34,7 @@ class Lesson(MScene):
         self.dGraph([ax, sin, ax2])
         tirm = ValueTracker(-0.5)
         tarm = ValueTracker(0.5)
-        l1 = always_redraw(lambda: ax.get_vertical_line(ax.i2gp(tirm.get_value(), sin), color=BLUE))
+        l1 = always_r,edraw(lambda: ax.get_vertical_line(ax.i2gp(tirm.get_value(), sin), color=BLUE))
         l2 = always_redraw(lambda: ax.get_vertical_line(ax.i2gp(tarm.get_value(), sin), color=BLUE))
         ter = always_redraw(lambda: ax.plot(
             lambda x: np.sin(x), 
