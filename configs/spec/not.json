@@ -1,0 +1,47 @@
+{
+    "init" : {
+        "lang" : "ru",
+        "colors" : ["#56E3A7", "#58C4DD"]
+    },
+    "subtitles" : {
+        "font" : "CMU Serif",
+        "size" : 30,
+        "max_size" : 60,
+        "types" : {
+            "normal" : {
+                "color" : "#FFFFFF",
+                "weght" : "NORMAL",
+                "slant" : "NORMAL"
+            },
+            "note" : {
+                "color" : "#FFFF00",
+                "weght" : "NORMAL",
+                "slant" : "ITALIC"
+            }
+        }
+    },
+    "outro" : {
+        "titles" : [
+            ["author1", "text1"],
+            ["author2", "text2"]
+        ],
+        "quote" : {
+            "text" : ["Wir müssen wissen", " – ", "wir werden wissen!"],
+            "author" : "David Helbert",
+            "lag" : 5
+        }
+    },
+    "color_scheme" : {
+        "main" : ["#56E3A7", "#58C4DD", "#A82BBE"],
+        "outro" : {
+            "titles" : [{}, {}],
+            "quote" : {
+                "text" : {
+                    "Wir müssen wissen" : "#56E3A7",
+                    "wir werden wissen!" : "#58C4DD"
+                },
+                "author" : "#FFFFFF"
+            }
+        }
+    }
+}

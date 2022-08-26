@@ -1,8 +1,7 @@
-from manim import *
-from Templ import *
+from emanim import *
 
-class GeneralS(MScene):
+class Perdel(EScene):
     def construct(self):
-        tex = Tex("Manim", color = BLUE).scale(4).shift(UP)
-        text = Text("На русском языке", color = RED).shift(DOWN)
-        self.play(Write(VGroup(tex, text).move_to(ORIGIN)))
+        self.start_lesson(file=__file__)
+        
+        self.wait(3)
