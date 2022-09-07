@@ -1,6 +1,7 @@
 # Fast math
+[![Youtube](https://img.shields.io/badge/youtube-general-red?logo=youtube)](https://www.youtube.com/channel/UC5WM2LHLAjds1ZhDdSleE7A)
 [![Site](https://img.shields.io/badge/site-pages-blue)](https://mrshprotter.github.io/fast_math/)
-[![Youtube](https://img.shields.io/badge/youtube-general-red)](https://mrshprotter.github.io/fast_math/)
+[![VK](https://img.shields.io/badge/VK-group-blue?logo=vk)](https://vk.com/fast_mathvk)
 ## Ветки
 ### master
 Постаянная оснавная ветка.
