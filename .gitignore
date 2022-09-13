@@ -3,5 +3,4 @@ env/
 *.pyc
 __pycache__/
 *.log
-*.png
 *.mp4
