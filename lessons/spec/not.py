@@ -2,7 +2,7 @@ from emanim import *
 
 class Notation(EScene):
     def construct(self):
-        self.start_lesson(file=__file__)
+        self.start_lesson(file=__file__, type="y")
         self.next_subt()
 
         sf = 2
