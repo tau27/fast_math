@@ -22,8 +22,7 @@
     },
     "outro" : {
         "titles" : [
-            ["author1", "text1"],
-            ["author2", "text2"]
+            ["Version ", "wihout music"]
         ],
         "quote" : {
             "text" : ["Wir müssen wissen", " – ", "wir werden wissen!"],
