@@ -5,4 +5,4 @@ env/
 __pycache__/
 *.log
 *.mp4
-*.png
+LaTeX/media/*
