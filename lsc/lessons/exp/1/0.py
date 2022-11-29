@@ -3,7 +3,7 @@ from math import sin, asin
 
 class Perdel(EScene):
     def construct(self):
-        self.start_lesson(file=__file__)
+        self.start_lesson(file=__file__, type="y")
         lim = MathTex(r"\lim_{x \to x_0} f(x) = a").scale(3)
         mod_lim = MathTex(r"f(x) \xrightarrow[x \to x_0]{} L").scale(3)
         hard = MathTex(
