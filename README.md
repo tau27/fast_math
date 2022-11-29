@@ -1,4 +1,4 @@
-![Banner](content/BannerRound.png)
+![Banner](media/my/content/BannerRound.png)
 # Fast math
 [![Youtube](https://img.shields.io/badge/youtube-general-red?logo=youtube)](https://www.youtube.com/channel/UC5WM2LHLAjds1ZhDdSleE7A)
 [![Site](https://img.shields.io/badge/site-pages-blue?logo=github)](https://mrshprotter.github.io/fast_math/)
